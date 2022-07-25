@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Board {
+public class Board { //엔티티 - 데이터베이스와 직접관계있는 곳 
 	private int boardcode;
 	private String title;
 	private int usercode;

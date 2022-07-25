@@ -1,5 +1,8 @@
 package com.springboot.studyeastzi.service.board;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.springboot.studyeastzi.domain.board.Board;
@@ -34,7 +37,7 @@ public class BoardServiceImpl implements BoardService {
 //		return boardRepository.save(createBoardReqDto.toEntity()) > 0;
 
 		//3
-		//entity -> dto 로 변경 
+		//entity -> dto 로 응답 
 		Board boardEntity = createBoardReqDto.toEntity(); //요청을 보내고
 		
 		boolean insertStatus = boardRepository.save(boardEntity) > 0;
@@ -48,9 +51,14 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
-	public ReadBoardRespDto readBoardList(int page) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ReadBoardRespDto> readBoardList(int page) throws Exception {
+		List<ReadBoardRespDto> BoardDtoList = new ArrayList<ReadBoardRespDto>();
+		
+		//List<Board> boardList = boardRepository.getBoardListOfIndex((page-1) * 10);
+		boardRepository.getBoardListOfIndex((page-1) * 10).forEach(board -> {
+			BoardDtoList.add(board.toReadBoardDto());
+		});
+ 		return BoardDtoList;
 	}
 
 	@Override
